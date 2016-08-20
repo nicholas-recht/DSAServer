@@ -1,0 +1,20 @@
+<div layout-padding style="text-align: center; height:100%"
+     context-menu="../static/views/file-context-menu.html"
+     ng-dblclick="fileContextMenu.downloadFile(x)"
+     ng-controller="fileController">
+    <md-icon class="material-icons"
+                         style="font-size:36px;height:36px;color:lightgray">insert_drive_file
+    </md-icon>
+    <br />
+    <span class="md-body-2" ng-show="!x.edit">{{x.name}}</span>
+    <md-input-container ng-show="x.edit" class="no-padding">
+        <input type="text" ng-model="x.newName" aria-label="File name"
+               ng-blur="endFileEdit(x)" ng-focus="beginFileEdit(x)" />
+    </md-input-container>
+    <br/>
+    <span class="md-caption">
+        Size: {{getDisplaySize(x.size)}}
+        <br />
+        Date: {{x.upload_date | date: 'short'}}
+    </span>
+</div>

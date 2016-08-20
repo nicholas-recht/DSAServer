@@ -1,0 +1,7 @@
+<md-content class="context-menu" md-theme="dark">
+    <md-list class="menu">
+        <md-list-item ng-click="fileContextMenu.downloadFile(x)" ng-show="x.status != 'lost'">Download</md-list-item>
+        <md-list-item ng-click="fileContextMenu.deleteFile(x)">Delete</md-list-item>
+        <md-list-item ng-click="fileContextMenu.renameFile(x)">Rename</md-list-item>
+    </md-list>
+</md-content>

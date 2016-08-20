@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <link rel="stylesheet" href="../static/styles/angular-material.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../static/styles/site.css" rel="stylesheet">
+    <title>DSA</title>
+</head>
+<body ng-app="app" ng-cloak ng-controller="bodyController">
+
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings">
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2>
+            <span>Distributed Storage Application</span>
+        </h2>
+
+        <span flex></span>
+
+        <label for="fileSearch" class="md-icon-button" aria-label="Search">
+                <md-icon class="material-icons">search</md-icon>
+        </label>
+        <md-input-container style="margin-top: 41px">
+            <label class="color-white">
+                Search
+            </label>
+            <input id="fileSearch" type="text"
+                   ng-model="searchText"
+                   ng-model-options='{ debounce: 1000 }'
+                   ng-change="searchBar(searchText)" />
+        </md-input-container>
+    </div>
+</md-toolbar>
+
+<div ng-include="bodyView"></div>
+
+<!--Dependency Scripts-->
+<script src="../static/scripts/angular/angular.min.js"></script>
+<script src="../static/scripts/angular/angular-animate.min.js"></script>
+<script src="../static/scripts/angular/angular-aria.min.js"></script>
+<script src="../static/scripts/angular/angular-messages.min.js"></script>
+<script src="../static/scripts/angular/angular-material.min.js"></script>
+<script src="../static/scripts/angular/angular-cookies.min.js"></script>
+<script src="../static/scripts/contextMenu.js"></script>
+
+<script src="../static/scripts/app.js"></script>
+<script src="../static/scripts/bodyController.js"></script>
+<script src="../static/scripts/explorerController.js"></script>
+<script src="../static/scripts/searchController.js"></script>
+<script src="../static/scripts/fileController.js"></script>
+<script src="../static/scripts/folderController.js"></script>
+
+</body>
+</html>

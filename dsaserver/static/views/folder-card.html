@@ -1,0 +1,13 @@
+<div layout-padding style="text-align: center; height:100%"
+     context-menu="../static/views/folder-context-menu.html"
+     ng-controller="folderController">
+    <md-icon class="material-icons"
+                         style="font-size:36px;height:36px;color:wheat">folder
+    </md-icon>
+    <br />
+    <span class="md-body-2" ng-show="!x.edit">{{x.name}}</span>
+    <md-input-container ng-show="x.edit" class="no-padding">
+        <input type="text" ng-model="x.newName" aria-label="Folder name"
+               ng-blur="endFolderEdit(x)" ng-focus="beginFolderEdit(x)" />
+    </md-input-container>
+</div>

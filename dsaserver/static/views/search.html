@@ -1,0 +1,42 @@
+<div ng-controller="searchController">
+     <md-content layout-padding layout="column" layout-align="start start" style="min-height:700px; overflow-x: hidden">
+         <!--Header-->
+        <div layout="row" layout-align="start start" style="width:100%">
+            <md-input-container class="md-block">
+                <md-checkbox ng-model="inContents" aria-label="Search in file contents">
+                    Search in File Contents?
+                </md-checkbox>
+            </md-input-container>
+            <span flex></span>
+
+            <md-input-container class="md-block">
+                <label>Order by:</label>
+                <md-select ng-model="orderBy" style="width: 100px">
+                  <md-option ng-repeat="x in orderOptions" value="{{x.value}}">
+                    {{x.display}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            <md-input-container class="md-block">
+                <md-checkbox ng-model="reverse" aria-label="Reverse Order">
+                    Descending
+                </md-checkbox>
+            </md-input-container>
+        </div>
+
+        <!--List of Files-->
+        <div style="width:100%; display:block">
+            <div ng-repeat="x in files | orderBy: orderBy:reverse" class="tile">
+                <ng-include src="'../static/views/file-card.html'"></ng-include>
+            </div>
+            <span ng-if="files.length == 0">
+                No results found
+            </span>
+        </div>
+
+        <div flex></div>
+    </md-content>
+
+    <md-progress-circular ng-show="loading" md-diameter="120px" md-mode="indeterminate" class="md-accent"
+                          style="position: fixed;left:45%; top:50%"></md-progress-circular>
+</div>

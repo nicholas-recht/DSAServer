@@ -1,0 +1,91 @@
+<div ng-controller="explorerController">
+    <md-content layout-padding layout="column" layout-align="start start"
+                style="min-height:700px; overflow-x: hidden">
+        <!--Header-->
+        <div layout="row" layout-align="start start" style="width:100%">
+            <div style="display:inline-block" ng-repeat="x in directoryList">
+                <md-button ng-click="selectFolder(x)"
+                           drop-it="dropFolder(drag, x)">
+                    <md-icon class="material-icons" style="font-size:24px;height:24px;padding:6px;color:wheat">folder_open
+                    </md-icon>
+                    {{x.name}}
+                    <md-icon class="material-icons" style="font-size:18px;height:18px;padding:3px">navigate_next
+                    </md-icon>
+                </md-button>
+            </div>
+
+            <span flex></span>
+
+            <md-input-container class="md-block">
+                <label>Order by:</label>
+                <md-select ng-model="orderBy" style="width: 100px">
+                  <md-option ng-repeat="x in orderOptions" value="{{x.value}}">
+                    {{x.display}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            <md-input-container class="md-block">
+                <md-checkbox ng-model="reverse" aria-label="Reverse Order">
+                    Descending
+                </md-checkbox>
+            </md-input-container>
+        </div>
+        <!--List of Folders-->
+        <div style="width:100%; display:block">
+            <div ng-repeat="x in folders | orderBy: 'name':reverse" class="tile" ng-dblclick="selectFolder(x)"
+                 drag-it="beginDrag(x)"
+                 drop-it="dropFolder(drag, x)">
+                <ng-include src="'../static/views/folder-card.html'"></ng-include>
+            </div>
+        </div>
+        <!--List of Files-->
+        <div style="width:100%; display:block">
+            <div ng-repeat="x in files | orderBy: orderBy:reverse" class="tile"
+                 drag-it="beginDrag(x)">
+                <ng-include src="'../static/views/file-card.html'"></ng-include>
+            </div>
+        </div>
+
+        <div flex></div>
+
+        <!--Space available-->
+        <div layout="row" layout-align="start start">
+            <md-checkbox ng-model="lost" aria-label="Search Unavailable Files">
+                Search Unavailable Files
+            </md-checkbox>
+        </div>
+        <div layout="row" layout-align="center center" style="width:100%">
+            <md-progress-linear md-mode="determinate" value="{{((totalSize - availableSize) / totalSize) * 100}}"></md-progress-linear>
+        </div>
+        <div layout="row" layout-align="center center" style="width:100%" class="md-body-2">
+            {{getDisplaySize(availableSize)}} free of {{getDisplaySize(totalSize)}}
+        </div>
+    </md-content>
+
+    <div class="static-bottom-right action-bar">
+        <md-fab-speed-dial md-open="actionBarOpen" md-direction="left"
+                           class="md-scale">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-fab md-accent">
+                    <md-tooltip md-direction="top">Actions</md-tooltip>
+                    <md-icon class="material-icons">view_module</md-icon>
+                </md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+                <div file-input="selectedFile" on-change="uploadFile(selectedFile)" id="input-file-id" class="ng-hide"></div>
+                <label for="input-file-id" aria-label="Upload File" class="md-fab md-button md-raised md-mini">
+                    <md-tooltip md-direction="top">Upload File</md-tooltip>
+                    <md-icon class="material-icons">file_upload</md-icon>
+                </label>
+                <md-button aria-label="Add File" class="md-fab md-raised md-mini" ng-click="addFolder();">
+                    <md-tooltip md-direction="top">New Folder</md-tooltip>
+                    <md-icon class="material-icons">create_new_folder</md-icon>
+                </md-button>
+            </md-fab-actions>
+        </md-fab-speed-dial>
+    </div>
+
+    <md-progress-circular ng-show="loading" md-diameter="120px" md-mode="indeterminate" class="md-accent"
+                          style="position: fixed;left:45%; top:50%"></md-progress-circular>
+
+</div>
